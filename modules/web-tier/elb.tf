@@ -46,6 +46,9 @@ resource "huaweicloud_elb_loadbalancer" "main" {
   # EIP'yi ELB'ye doğrudan bağla
   ipv4_eip_id = huaweicloud_vpc_eip.elb.id
 
+  # İnternet → ELB trafiğini kontrol eden SG
+  security_group_ids = [huaweicloud_networking_secgroup.elb.id]
+
   tags = {
     Environment = "workshop"
     ManagedBy   = "terraform"
