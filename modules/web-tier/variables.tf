@@ -1,20 +1,8 @@
-variable "region" {
-  description = "Huawei Cloud bölgesi (örn: tr-west-1, cn-north-4)"
-  type        = string
-  default     = "tr-west-1"
-}
-
-variable "access_key" {
-  description = "Huawei Cloud Access Key (AK)"
-  type        = string
-  sensitive   = true
-}
-
-variable "secret_key" {
-  description = "Huawei Cloud Secret Key (SK)"
-  type        = string
-  sensitive   = true
-}
+# -----------------------------------------------------------
+# NOT: region, access_key, secret_key değişkenleri burada yok.
+# Bu bilgiler Terragrunt root konfigürasyonundan sağlanır
+# ve provider.tf dosyasına otomatik olarak yazılır.
+# -----------------------------------------------------------
 
 variable "prefix" {
   description = "Tüm kaynaklara eklenecek isim öneki"
