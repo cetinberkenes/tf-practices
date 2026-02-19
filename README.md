@@ -1,6 +1,17 @@
 # Huawei Cloud + Terraform Workshop
 ## Fikir 3: Ölçeklenebilir Web Katmanı (ELB + ECS)
 
+> **NOT — Yapı Güncellendi!**
+> Bu repo artık **Terragrunt** kullanacak şekilde yeniden yapılandırıldı.
+> Terraform dosyaları `modules/web-tier/` klasörüne taşındı.
+> Lütfen **[README-terragrunt.md](README-terragrunt.md)** dosyasını takip edin.
+>
+> | Eski Yol | Yeni Yol |
+> |----------|----------|
+> | `main.tf`, `variables.tf` (root) | `modules/web-tier/*.tf` |
+> | `cp terraform.tfvars.example terraform.tfvars` | Gerek yok — inputs `live/dev/web-tier/terragrunt.hcl` içinde |
+> | `terraform init/plan/apply` | `terragrunt init/plan/apply` |
+
 **Süre:** ~60 dakika
 **Seviye:** Orta
 **Kazanımlar:** `count`, `depends_on`, resource referansları, load balancer mimarisi

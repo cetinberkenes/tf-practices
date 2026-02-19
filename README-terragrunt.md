@@ -99,17 +99,27 @@ terragrunt --version
 
 Kimlik bilgilerini **asla** kod içine yazmayın. Çevre değişkeni kullanın:
 
+**Linux / macOS (bash/zsh):**
 ```bash
-# ~/.bashrc veya ~/.zshrc dosyasına ekle
 export HW_ACCESS_KEY="sizin_access_key_buraya"
 export HW_SECRET_KEY="sizin_secret_key_buraya"
 export HW_REGION="tr-west-1"
-export TG_STATE_BUCKET="workshop-terragrunt-state"   # OBS bucket adı
+export TG_STATE_BUCKET="workshop-terragrunt-state"
 export TF_VAR_ecs_password="Workshop@2024!"
-
-# Terminale uygula
-source ~/.bashrc
 ```
+
+**Windows PowerShell:**
+```powershell
+$env:HW_ACCESS_KEY = "sizin_access_key_buraya"
+$env:HW_SECRET_KEY = "sizin_secret_key_buraya"
+$env:HW_REGION = "tr-west-1"
+$env:TG_STATE_BUCKET = "workshop-terragrunt-state"
+$env:TF_VAR_ecs_password = "Workshop@2024!"
+```
+
+> **NOT:** PowerShell'de `export` yerine `$env:` kullanılır.
+> Bu değişkenler sadece mevcut terminal oturumu için geçerlidir.
+> Kalıcı yapmak için PowerShell profilinize ekleyebilirsiniz.
 
 ---
 
@@ -117,15 +127,25 @@ source ~/.bashrc
 
 ### 1. Yapıyı İncele (10 dk)
 
+**Linux/macOS:**
 ```bash
-# Repo kökünden başla
 cd tf-practices
-
-# Modül yapısına bak
 ls -la modules/web-tier/
 ls -la live/
 ls -la live/dev/web-tier/
 ```
+
+**Windows PowerShell:**
+```powershell
+cd tf-practices
+dir modules\web-tier\
+dir live\
+dir live\dev\web-tier\
+```
+
+> **ÖNEMLİ:** `terraform.tfvars.example` kopyalamaya gerek yok!
+> Terragrunt'ta değişkenler `live/dev/web-tier/terragrunt.hcl` içindeki
+> `inputs` bloğundan gelir. `terraform.tfvars` dosyası kullanılmaz.
 
 **Önemli sorular:**
 - `modules/web-tier/main.tf` içinde provider bloğu var mı? Neden?
@@ -135,7 +155,11 @@ ls -la live/dev/web-tier/
 ### 2. Root Konfigürasyonu İncele
 
 ```bash
+# Linux/macOS
 cat live/terragrunt.hcl
+
+# Windows PowerShell
+Get-Content live\terragrunt.hcl
 ```
 
 **Dikkat edilecek noktalar:**
@@ -147,7 +171,11 @@ cat live/terragrunt.hcl
 ### 3. Ortam Konfigürasyonunu İncele
 
 ```bash
+# Linux/macOS
 cat live/dev/web-tier/terragrunt.hcl
+
+# Windows PowerShell
+Get-Content live\dev\web-tier\terragrunt.hcl
 ```
 
 **Dikkat edilecek noktalar:**
@@ -157,8 +185,15 @@ cat live/dev/web-tier/terragrunt.hcl
 
 ### 4. Init
 
+**Linux/macOS:**
 ```bash
 cd live/dev/web-tier
+terragrunt init
+```
+
+**Windows PowerShell:**
+```powershell
+cd live\dev\web-tier
 terragrunt init
 ```
 
@@ -169,9 +204,13 @@ terragrunt init
 4. `terraform init` çalıştırır (provider indirir, backend kurar)
 
 **Generate edilen dosyaları gör:**
+
 ```bash
-find .terragrunt-cache -name "provider.tf" -o -name "backend.tf" | head -5
-cat $(find .terragrunt-cache -name "provider.tf" | head -1)
+# Linux/macOS
+find .terragrunt-cache -name "provider.tf" | head -3
+
+# Windows PowerShell
+Get-ChildItem -Recurse -Filter "provider.tf" .terragrunt-cache | Select-Object -First 3 FullName
 ```
 
 ### 5. Plan
@@ -305,6 +344,10 @@ terragrunt run-all destroy
 ---
 
 ## Sık Yapılan Hatalar
+
+### "Cannot find path '...terraform.tfvars.example' because it does not exist" (Windows)
+Bu hata eski README.md'deki `cp terraform.tfvars.example terraform.tfvars` adımını çalıştırmaya çalıştığınızda oluşur.
+**Terragrunt'ta bu adıma gerek yok!** Değişkenler zaten `live/dev/web-tier/terragrunt.hcl` içindeki `inputs` bloğunda tanımlı.
 
 ### "Error: No OBS bucket found"
 OBS bucket oluşturulmamış. Console'dan oluşturun, `TG_STATE_BUCKET` ile aynı ismi kullanın.
