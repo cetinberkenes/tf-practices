@@ -9,15 +9,6 @@ terraform {
   }
 }
 
-# -----------------------------------------------------------
-# NOT: Bu modül Terragrunt tarafından kullanılır.
-# - provider "huaweicloud" bloğu Terragrunt tarafından
-#   otomatik olarak provider.tf dosyasına generate edilir.
-# - terraform { backend {} } bloğu Terragrunt tarafından
-#   otomatik olarak backend.tf dosyasına generate edilir.
-# Bu dosyada sadece data sources ve locals tanımlanır.
-# -----------------------------------------------------------
-
 # Data Sources — mevcut bulut kaynaklarını sorgular
 
 # Bölgedeki Availability Zone'ları listele

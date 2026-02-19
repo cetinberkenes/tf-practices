@@ -1,16 +1,5 @@
 # Huawei Cloud + Terraform Workshop
-## Fikir 3: Ölçeklenebilir Web Katmanı (ELB + ECS)
-
-> **NOT — Yapı Güncellendi!**
-> Bu repo artık **Terragrunt** kullanacak şekilde yeniden yapılandırıldı.
-> Terraform dosyaları `modules/web-tier/` klasörüne taşındı.
-> Lütfen **[README-terragrunt.md](README-terragrunt.md)** dosyasını takip edin.
->
-> | Eski Yol | Yeni Yol |
-> |----------|----------|
-> | `main.tf`, `variables.tf` (root) | `modules/web-tier/*.tf` |
-> | `cp terraform.tfvars.example terraform.tfvars` | Gerek yok — inputs `live/dev/web-tier/terragrunt.hcl` içinde |
-> | `terraform init/plan/apply` | `terragrunt init/plan/apply` |
+## Ölçeklenebilir Web Katmanı (ELB + ECS)
 
 **Süre:** ~60 dakika
 **Seviye:** Orta
@@ -66,14 +55,16 @@
 
 ```
 tf-practices/
-├── main.tf                   # Provider + Data sources
-├── network.tf                # VPC, Subnet, Security Groups
-├── compute.tf                # ECS instances (count kullanımı)
-├── elb.tf                    # ELB, Listener, Pool, Members, EIP
-├── variables.tf              # Değişken tanımları
-├── outputs.tf                # Apply sonrası gösterilecek bilgiler
-├── terraform.tfvars.example  # Örnek değişken dosyası
-└── .gitignore                # State ve tfvars dosyalarını dışlar
+└── modules/
+    └── web-tier/
+        ├── main.tf                   # Terraform ayarları + Data sources
+        ├── provider.tf               # Huawei Cloud provider
+        ├── network.tf                # VPC, Subnet, Security Groups
+        ├── compute.tf                # ECS instances (count kullanımı)
+        ├── elb.tf                    # ELB, Listener, Pool, Members, EIP
+        ├── variables.tf              # Değişken tanımları
+        ├── outputs.tf                # Apply sonrası gösterilecek bilgiler
+        └── terraform.tfvars.example  # Örnek değişken dosyası
 ```
 
 ---
@@ -82,45 +73,28 @@ tf-practices/
 
 ### 1. Hazırlık (5 dk)
 
-> **BU ADIM GEÇERSİZ — Terragrunt'a geçildi!**
-> Aşağıdaki `cp` komutu artık çalışmaz çünkü `terraform.tfvars.example`
-> `modules/web-tier/` klasörüne taşındı. Terragrunt kullanımında `terraform.tfvars`
-> dosyasına gerek yoktur — lütfen **[README-terragrunt.md](README-terragrunt.md)**
-> dosyasını takip edin.
-
 ```bash
 # Repoyu klonla
 git clone <repo-url>
-cd tf-practices
+cd tf-practices/modules/web-tier
+
+# Örnek değişken dosyasını kopyala
+cp terraform.tfvars.example terraform.tfvars
 ```
 
-~~`cp terraform.tfvars.example terraform.tfvars`~~ ← **YAPMAYIN — hata verir**
+`terraform.tfvars` dosyasını açın ve gerçek değerlerinizi girin:
 
-**Bunun yerine** çevre değişkenleri kullanın:
-
-```powershell
-# Windows PowerShell
-$env:HW_ACCESS_KEY = "sizin_access_key"
-$env:HW_SECRET_KEY = "sizin_secret_key"
-$env:HW_REGION = "tr-west-1"
-$env:TG_STATE_BUCKET = "workshop-terragrunt-state"
-$env:TF_VAR_ecs_password = "Workshop@2024!"
+```hcl
+region     = "tr-west-1"
+access_key = "AK_BURAYA"
+secret_key = "SK_BURAYA"
+ecs_password = "Sifreniz@2024!"
 ```
-
-```bash
-# Linux / macOS
-export HW_ACCESS_KEY="sizin_access_key"
-export HW_SECRET_KEY="sizin_secret_key"
-export HW_REGION="tr-west-1"
-export TG_STATE_BUCKET="workshop-terragrunt-state"
-export TF_VAR_ecs_password="Workshop@2024!"
-```
-
-Sonra **[README-terragrunt.md → Workshop Adımları](README-terragrunt.md#workshop-adımları)** bölümünden devam edin.
 
 ### 2. Terraform Init (3 dk)
 
 ```bash
+# modules/web-tier/ klasöründe çalıştırın
 terraform init
 ```
 
