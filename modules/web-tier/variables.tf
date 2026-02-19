@@ -62,3 +62,9 @@ variable "bandwidth_size" {
   type        = number
   default     = 5
 }
+
+variable "time_tag" {
+  description = "ECS silme koruması tarihi (yyyy-mm-dd). Silme scripti bu değeri kontrol eder. Boş bırakılırsa apply günü otomatik atanır."
+  type        = string
+  default     = ""
+}

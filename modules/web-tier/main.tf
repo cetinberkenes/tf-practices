@@ -37,4 +37,7 @@ locals {
 
   # Her ECS için hangi AZ kullanılacak (AZ sayısına göre döngüsel)
   az_list = data.huaweicloud_availability_zones.az.names
+
+  # Silme koruması tarihi: tfvars'ta belirtilmişse onu kullan, yoksa bugünün tarihi
+  time_tag = var.time_tag != "" ? var.time_tag : formatdate("YYYY-MM-DD", timestamp())
 }

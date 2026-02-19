@@ -37,3 +37,7 @@ ecs_count = 2
 # ECS flavor (boş bırakırsanız otomatik seçilir)
 # Örnekler: s6.small.1, s6.medium.2, c7.large.2
 # ecs_flavor = ""
+
+# Silme koruması tarihi — silme scripti bu tarihten önce kaynağı silmez
+# Boş bırakılırsa terraform apply günü otomatik atanır
+time_tag = "2026-03-01"

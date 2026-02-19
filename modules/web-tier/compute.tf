@@ -82,5 +82,6 @@ resource "huaweicloud_compute_instance" "web" {
     Environment = "workshop"
     ManagedBy   = "terraform"
     Index       = tostring(count.index + 1)
+    time        = local.time_tag
   }
 }
