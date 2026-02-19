@@ -1,0 +1,39 @@
+# ===========================================================
+# KULLANIM: Bu dosyayı kopyalayın ve gerçek değerleri girin
+#
+#   cp terraform.tfvars.example terraform.tfvars
+#
+# UYARI: terraform.tfvars dosyasını asla git'e commit etmeyin!
+#        .gitignore dosyanıza ekleyin.
+# ===========================================================
+
+# Huawei Cloud kimlik bilgileri
+# IAM > Kullanıcı > Güvenlik Kimlik Bilgileri > Erişim Anahtarları
+access_key = "BURAYA_ACCESS_KEY_GIRIN"
+secret_key = "BURAYA_SECRET_KEY_GIRIN"
+
+# Bölge seçimi
+# Türkiye: tr-west-1
+# Diğer örnek bölgeler: cn-north-4, ap-southeast-1, eu-west-101
+region = "tr-west-1"
+
+# Tüm kaynakların isim öneki
+prefix = "workshop"
+
+# ECS şifresi (SSH veya konsol girişi için)
+# En az 8 karakter, büyük harf + küçük harf + rakam içermeli
+ecs_password = "Workshop@2024!"
+
+# Kaç adet ECS oluşturulsun? (önerilen: 2)
+ecs_count = 2
+
+# VPC ve Subnet CIDR (default değerler genellikle yeterli)
+# vpc_cidr    = "10.0.0.0/16"
+# subnet_cidr = "10.0.1.0/24"
+
+# ELB EIP bant genişliği (Mbit/s, min 1, max 300)
+# bandwidth_size = 5
+
+# ECS flavor (boş bırakırsanız otomatik seçilir)
+# Örnekler: s6.small.1, s6.medium.2, c7.large.2
+# ecs_flavor = ""

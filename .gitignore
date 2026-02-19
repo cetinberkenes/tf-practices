@@ -1,0 +1,21 @@
+# Terraform state dosyaları — hassas bilgi içerebilir
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Gerçek değerleri içeren tfvars — GIT'E KOMİT ETME!
+terraform.tfvars
+
+# Override dosyaları
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Crash logları
+crash.log
+crash.*.log
+
+# Plan output dosyaları
+*.tfplan
