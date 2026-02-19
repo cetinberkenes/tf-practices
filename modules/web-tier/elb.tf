@@ -81,13 +81,12 @@ resource "huaweicloud_elb_pool" "http" {
 # max_retries: Kaç başarısız denemeden sonra sunucu "down" sayılsın?
 
 resource "huaweicloud_elb_monitor" "http" {
-  pool_id      = huaweicloud_elb_pool.http.id
-  protocol     = "HTTP"
-  interval     = 5
-  timeout      = 3
-  max_retries  = 3
-  url_path     = "/"    # Kontrol edilecek URL path (HTTP 200 beklenir)
-  monitor_port = 80
+  pool_id     = huaweicloud_elb_pool.http.id
+  protocol    = "HTTP"
+  interval    = 5
+  timeout     = 3
+  max_retries = 3
+  url_path    = "/"    # Kontrol edilecek URL path (HTTP 200 beklenir)
 }
 
 # ===========================================================
