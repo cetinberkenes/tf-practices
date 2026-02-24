@@ -1,0 +1,8 @@
+# Bu dosyayı kopyalayın: cp terraform.tfvars.example terraform.tfvars
+
+app_name    = "workshop-app"
+environment = "dev"
+port        = 3000
+debug_mode  = true
+db_password = "GizliSifre123!"
+region      = "tr-west-1"
